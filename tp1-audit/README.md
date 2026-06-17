@@ -8,7 +8,7 @@ Cartographier les flux de données d'une application Python, identifier les vuln
 
 ## Mise en place
 
-Depuis la **racine du cours** (`courses/secure-python/`) :
+Depuis la **racine de ce repo** :
 
 ```bash
 cd ../..    # depuis student/tp1-audit
@@ -23,13 +23,13 @@ make reinstall
 make run-tp1
 ```
 
-**Prérequis :** Python **3.10+**. Sur macOS si `python3` est en 3.7 : `brew install python@3.14`
+**Prérequis :** Python **3.10+**.
 
 L'application expose une API Flask sur `http://127.0.0.1:5001`.
 
 ### Erreur `ModuleNotFoundError: No module named 'flask'`
 
-Le venv a été créé avec une version de Python différente de celle utilisée par `pip` (ex. python 3.7 + paquets en 3.14).
+Le venv a été créé avec une version de Python différente de celle utilisée par `pip`.
 
 ```bash
 cd courses/secure-python
