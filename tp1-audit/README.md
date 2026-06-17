@@ -11,7 +11,7 @@ Cartographier les flux de données d'une application Python, identifier les vuln
 Depuis la **racine de ce repo** :
 
 ```bash
-cd ../..    # depuis student/tp1-audit
+cd ..
 make install
 make run-tp1
 ```
