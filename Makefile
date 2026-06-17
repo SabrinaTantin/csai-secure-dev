@@ -5,7 +5,7 @@ PYTHON := $(VENV)/bin/python
 PIP := $(VENV)/bin/pip
 FIND_PYTHON := ./scripts/find_python.sh
 
-STUDENT_TPS := student/tp2-injections/tests student/tp3-auth/tests student/tp4-web-api/tests student/tp6-challenge/tests
+STUDENT_TPS := tp2-injections/tests tp3-auth/tests tp4-web-api/tests tp6-challenge/tests
 SOLUTION_TPS := instructor/solutions/tp2-injections/tests instructor/solutions/tp3-auth/tests instructor/solutions/tp4-web-api/tests instructor/solutions/tp6-challenge/tests
 
 check-env:
@@ -44,7 +44,7 @@ clean:
 	rm -rf $(VENV)
 
 run-tp1: check-env
-	$(PYTHON) student/tp1-audit/app/vulnerable_app.py
+	$(PYTHON) tp1-audit/app/vulnerable_app.py
 
 test-student: check-env
 	$(PYTHON) -m pytest $(STUDENT_TPS) -v
@@ -55,7 +55,7 @@ test-solutions: check-env
 test: test-student
 
 bandit: check-env
-	$(VENV)/bin/bandit -r student/tp5-sast/sample_project student/tp1-audit/app student/tp3-auth/app student/tp4-web-api/app student/tp6-challenge/app -ll
+	$(VENV)/bin/bandit -r tp5-sast/sample_project tp1-audit/app tp3-auth/app tp4-web-api/app tp6-challenge/app -ll
 
 pip-audit: check-env
 	$(VENV)/bin/pip-audit -r requirements.txt
