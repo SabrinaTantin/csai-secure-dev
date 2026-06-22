@@ -63,25 +63,17 @@ load_session()	| Utilisation de pickle.loads() sur des données reçues en POST|
 admin_config()| 	Exposition du chemin de la base, du mode debug et de la clé secrète	| Mauvaise configuration — OWASP A05
 app.run(debug=True)	| Lancement de Flask en mode debug| 	Mauvaise configuration — OWASP A05
 
-   ## 3. Top 3 des correctifs prioritaires
-   
-### 1. Supprimer la désérialisation `pickle`
 
-La priorité numéro 1 concerne la fonction qui utilise `pickle.loads()` sur une donnée fournie par l’utilisateur. Cette vulnérabilité est critique car elle peut permettre à un attaquant d’exécuter du code côté serveur. Elle correspond à l’OWASP A08 — Software or Data Integrity Failures.
 
-Le correctif prioritaire consiste à supprimer l’utilisation de `pickle` pour les données utilisateur. Il faut utiliser un format plus sûr, comme JSON, et valider strictement les champs attendus avant tout traitement.
+## 5. Corrections proposées pour 5 vulnérabilités
 
-### 2. Corriger l’injection SQL
-
-La deuxième priorité concerne la route `/users/search`. Cette route utilise une entrée utilisateur dans une requête SQL. Si cette entrée n’est pas correctement contrôlée, un attaquant peut tenter de lire ou d’extraire des données de la base. Cette vulnérabilité correspond à l’OWASP A03 — Injection.
-
-Le correctif consiste à utiliser des requêtes SQL paramétrées. Cela permet de séparer clairement la requête SQL des données saisies par l’utilisateur.
-
-### 3. Sécuriser la configuration, les secrets et les fichiers
-
-La troisième priorité concerne l’exposition d’informations sensibles et la gestion des fichiers. La route `/admin/config` expose la clé secrète Flask, le chemin de la base de données et le mode debug actif. Les routes d’upload et de téléchargement peuvent aussi permettre une lecture ou une écriture de fichiers non autorisée. Ces vulnérabilités correspondent notamment à l’OWASP A05 — Security Misconfiguration et A01 — Broken Access Control.
-
-Les correctifs consistent à supprimer ou protéger la route `/admin/config`, placer les secrets dans des variables d’environnement, désactiver le mode debug, contrôler les extensions de fichiers autorisées et interdire les chemins dangereux comme `../`.
+| Vulnérabilité corrigée | Correction à appliquer | Objectif de sécurité |
+|---|---|---|
+| Injection SQL dans `/users/search` | Remplacer la requête SQL construite avec une entrée utilisateur par une requête paramétrée. | Empêcher l’injection SQL et protéger la base de données. |
+| Désérialisation dangereuse dans `/session/load` | Supprimer `pickle.loads()` et utiliser un format sûr comme JSON avec validation stricte des champs. | Éviter l’exécution de code arbitraire côté serveur. |
+| Hash MD5 des mots de passe | Remplacer `hashlib.md5()` par un algorithme adapté au stockage des mots de passe, par exemple `bcrypt` ou `werkzeug.security.generate_password_hash`. | Renforcer la protection des mots de passe. |
+| Exposition de secrets via `/admin/config` | Supprimer la route ou la protéger par authentification, et déplacer la clé secrète dans une variable d’environnement. | Éviter la fuite de secrets applicatifs. |
+| Upload/téléchargement de fichiers non contrôlés | Utiliser `secure_filename()`, vérifier les extensions autorisées et empêcher les chemins contenant `../`. | Empêcher la lecture ou l’écriture de fichiers non autorisés. |
 
 ### Conclusion
 Les corrections prioritaires doivent se concentrer sur la suppression de `pickle`, la sécurisation des requêtes SQL et la protection des fichiers et secrets.
