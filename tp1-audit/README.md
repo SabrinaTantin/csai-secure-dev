@@ -1,3 +1,5 @@
+# Ce livrable présente l’audit de sécurité du TP1. L’analyse porte sur les flux applicatifs, les vulnérabilités identifiées, leur correspondance avec l’OWASP Top 10 et les correctifs prioritaires à mettre en œuvre.
+
 # TP1 — Audit d'une mini-application vulnérable (Séance 1)
 
 **Durée :** 1h30 | **Travail :** binôme
