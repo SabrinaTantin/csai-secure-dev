@@ -65,7 +65,7 @@ app.run(debug=True)	| Lancement de Flask en mode debug| 	Mauvaise configuration 
 
 
 
-## 3. Corrections proposées pour 5 vulnérabilités
+### 3. Corrections proposées pour 5 vulnérabilités
 
 | Vulnérabilité corrigée | Correction à appliquer | Objectif de sécurité |
 |---|---|---|
