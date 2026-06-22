@@ -10,18 +10,18 @@ Cartographier les flux de données d'une application Python, identifier les vuln
 
 Depuis la **racine de ce repo** :
 
-```bash
+   bash
 cd ..
 make install
 make run-tp1
-```
+
 
 Si erreur Flask ou « environnement incohérent » :
 
-```bash
+   bash
 make reinstall
 make run-tp1
-```
+
 
 **Prérequis :** Python **3.10+**.
 
@@ -31,11 +31,11 @@ L'application expose une API Flask sur `http://127.0.0.1:5001`.
 
 Le venv a été créé avec une version de Python différente de celle utilisée par `pip`.
 
-```bash
+   bash
 cd courses/secure-python
 make reinstall
 make run-tp1
-```
+
 
 ## Énoncé
 
@@ -79,8 +79,21 @@ Fichier `audit-<nom1>-<nom2>.md` (1 page max) contenant :
 
 L’application Flask du TP1 a été exécutée dans GitHub Codespaces avec les commandes suivantes :
 
-bash
-make install
-make run-tp1
+- make install
+- make run-tp1
 
+Deux routes ont été testées :
+
+- /users/search?username=admin : retourne l’utilisateur admin, ce qui confirme le fonctionnement de la recherche utilisateur.
+- /admin/config : expose le chemin de la base de données, le mode debug actif et la clé secrète Flask.
+
+Résultat observé sur /admin/config :
+
+{
+  "db_path": "/workspaces/csai-secure-dev/tp1-audit/app/users.db",
+  "debug": "true",
+  "secret_key": "super-secret-key-do-not-share"
+}
+
+Cette vérification confirme que l’application exécutée correspond bien aux vulnérabilités identifiées dans l’audit.
  
