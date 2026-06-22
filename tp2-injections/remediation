@@ -1,1 +1,19 @@
+# TP2 — Remédiation des injections
 
+## 1. Injection SQL
+
+La vulnérabilité d’injection SQL se trouvait dans le fichier `labs/sql_search.py`. Le problème venait du fait que l’entrée utilisateur `username` pouvait être intégrée directement dans une requête SQL. Un attaquant pouvait alors utiliser un payload comme `' OR '1'='1` pour retourner plusieurs utilisateurs au lieu d’un seul.
+
+Le correctif consiste à utiliser une requête SQL paramétrée avec un placeholder `?`. Ainsi, la valeur fournie par l’utilisateur est traitée comme une donnée et non comme du code SQL. Cette correction permet de neutraliser l’injection SQL et de respecter le principe de validation des entrées utilisateur.
+
+## 2. Injection de commande OS
+
+La vulnérabilité d’injection de commande OS se trouvait dans le fichier `labs/command_runner.py`. Le paramètre `host` pouvait contenir des métacaractères shell comme `;`, `&`, `|` ou `$`, permettant d’enchaîner une commande non prévue, par exemple `127.0.0.1; echo PWNED`.
+
+Le correctif consiste à valider strictement la valeur de `host`, à refuser les métacaractères shell dangereux, puis à exécuter la commande avec une liste d’arguments et `shell=False`. Cette approche empêche l’interprétation de la saisie utilisateur comme une commande système.
+
+## 3. Path traversal
+
+La vulnérabilité de path traversal se trouvait dans le fichier `labs/file_storage.py`. Le problème venait du fait qu’un utilisateur pouvait fournir un chemin contenant `../` afin de lire ou écrire un fichier en dehors du répertoire autorisé.
+
+Le correctif consiste à utiliser `pathlib.resolve()` pour obtenir le chemin absolu final, puis à vérifier que ce chemin reste bien dans le répertoire autorisé `STORAGE_ROOT`. Une allowlist d’extensions est également utilisée afin de limiter les types de fichiers manipulables. Cette correction empêche l’accès à des fichiers situés hors du dossier prévu.
