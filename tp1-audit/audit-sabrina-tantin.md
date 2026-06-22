@@ -2,7 +2,7 @@ Ce livrable présente l’audit de sécurité du TP1. L’analyse porte sur les 
 
 # TP1 — Audit de sécurité d’une application Flask vulnérable
 
-## 1. Schéma de flux applicatif
+## 1. Schéma de flux applicatif.
 
 text
 Utilisateur / Attaquant
