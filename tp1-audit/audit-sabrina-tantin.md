@@ -2,7 +2,7 @@
 
 ## 1. Schéma de flux applicatif
 
-```text
+text
 Utilisateur / Attaquant
         |
         v
@@ -32,7 +32,7 @@ Application Flask
         |
         +--> /admin/config
                 Sortie : informations de configuration sensibles
-```
+
 
 ## 2. Vulnérabilités identifiées
 
@@ -61,12 +61,12 @@ Les requêtes SQL doivent être paramétrées afin d’éviter l’injection SQL
 
 Exemple de correction :
 
-```python
+python
 conn.execute(
     "SELECT id, username FROM users WHERE username = ?",
     (username,)
 )
-```
+
 
 ### 3. Sécuriser la gestion des fichiers et de la configuration
 
