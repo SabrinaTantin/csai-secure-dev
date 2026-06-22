@@ -1,3 +1,5 @@
+# Ce livrable présente l’audit de sécurité du TP1. L’analyse porte sur les flux applicatifs, les vulnérabilités identifiées, leur correspondance avec l’OWASP Top 10 et les correctifs prioritaires à mettre en oeuvre.
+
 # TP1 — Audit de sécurité d’une application Flask vulnérable
 
 ## 1. Schéma de flux applicatif
