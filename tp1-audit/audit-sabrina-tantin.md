@@ -51,6 +51,18 @@ Application Flask
 | Mode debug activé                  | A05: Security Misconfiguration              | `app.run(debug=True)` | Le mode debug peut exposer des informations techniques sensibles.                                                  | Haute    |
 
 
+Script / fonction| 	Élément observé	Vulnérabilité associée
+APP_SECRET = "super-secret-key-do-not-share"	| Clé secrète écrite en dur dans le code	| Exposition de secret — OWASP A05
+init_db()	| Création d’un compte admin avec le mot de passe admin123| 	Authentification faible — OWASP A07
+hash_password()	| Utilisation de hashlib.md5() pour hacher les mots de passe| 	Mauvais mécanisme cryptographique — OWASP A02
+search_users()	| Requête SQL construite avec une entrée utilisateur username	| Injection SQL — OWASP A03
+register_user()	| Journalisation du mot de passe dans les logs	| Fuite d’information dans les logs — OWASP A09
+upload_file()	| Écriture d’un fichier avec un nom fourni par l’utilisateur	| Upload non contrôlé / path traversal — OWASP A01
+download_file()	| Lecture d’un fichier à partir d’un paramètre utilisateur name	| Téléchargement non contrôlé — OWASP A01
+load_session()	| Utilisation de pickle.loads() sur des données reçues en POST| 	Désérialisation dangereuse — OWASP A08
+admin_config()| 	Exposition du chemin de la base, du mode debug et de la clé secrète	| Mauvaise configuration — OWASP A05
+app.run(debug=True)	| Lancement de Flask en mode debug| 	Mauvaise configuration — OWASP A05
+
    ## 3. Top 3 des correctifs prioritaires
    
 ### 1. Supprimer la désérialisation `pickle`
