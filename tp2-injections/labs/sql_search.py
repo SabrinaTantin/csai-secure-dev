@@ -1,27 +1,31 @@
-"""Lab SQL — version vulnérable (injection)."""
-
 import sqlite3
-from pathlib import Path
-
-DB_PATH = Path(__file__).parent / "data" / "users.db"
 
 
-def init_db() -> None:
-    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with sqlite3.connect(DB_PATH) as conn:
-        conn.execute(
-            "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT)"
-        )
-        conn.execute("DELETE FROM users")
-        conn.executemany(
-            "INSERT INTO users (username) VALUES (?)",
-            [("alice",), ("bob",), ("charlie",)],
-        )
+def init_db():
+    conn = sqlite3.connect(":memory:")
+    conn.row_factory = sqlite3.Row
+
+    conn.execute("CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT)")
+    conn.executemany(
+        "INSERT INTO users (id, username) VALUES (?, ?)",
+        [
+            (1, "alice"),
+            (2, "bob"),
+            (3, "charlie"),
+        ],
+    )
+    conn.commit()
+    return conn
 
 
-def search_users(username: str) -> list[dict]:
-    init_db()
-    query = f"SELECT id, username FROM users WHERE username = '{username}'"
-    with sqlite3.connect(DB_PATH) as conn:
-        rows = conn.execute(query).fetchall()
-    return [{"id": row[0], "username": row[1]} for row in rows]
+def search_users(username):
+    conn = init_db()
+
+    # Correction : requête SQL paramétrée.
+    # L'entrée utilisateur n'est jamais concaténée dans la requête SQL.
+    rows = conn.execute(
+        "SELECT id, username FROM users WHERE username = ?",
+        (username,),
+    ).fetchall()
+
+    return [dict(row) for row in rows]
