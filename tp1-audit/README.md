@@ -73,3 +73,14 @@ Fichier `audit-<nom1>-<nom2>.md` (1 page max) contenant :
 - Au moins 5 vulnérabilités identifiées correctement
 - Lien explicite avec OWASP Top 10
 - Priorisation argumentée (pas seulement une liste)
+
+
+## 4. Vérification par exécution Python
+
+L’application Flask du TP1 a été exécutée dans GitHub Codespaces avec les commandes suivantes :
+
+bash
+make install
+make run-tp1
+
+ 
