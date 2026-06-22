@@ -1,4 +1,4 @@
-# TP1 — Corrigé instructeur
+# TP1 — Corrigé
 
 ## Vulnérabilités attendues
 
@@ -12,13 +12,15 @@
 | 6 | Log mots de passe | A09 Logging Failures | `register_user()` | Credentials en clair dans les logs |
 | 7 | Misconfiguration | A05 | `debug=True`, `0.0.0.0` | Console Werkzeug exposée |
 
-Les étudiants doivent identifier **≥ 5** failles ; 6–7 comptent en bonus.
+Identifier **≥ 5** failles ; 6–7 comptent en bonus.
 
-## Priorisation type (Top 3)
+## Priorisation type (Top 5)
 
 1. **Pickle** — exécution de code à distance, impact maximal
 2. **SQL injection** — exfiltration / modification de la base
 3. **Secret exposé via `/admin/config`** — compromission globale
+4. **Misconfiguration** `0.0.0.0 debug=True` - Mauvaise configuration
+5. **Secret Hardcodé** `API_SECRET` - Fuite de clé API
 
 ## Pistes de correction (extrait)
 
@@ -45,13 +47,3 @@ session = json.loads(token.decode())
 # Logs — ne jamais logger le mot de passe
 logger.info("Register attempt username=%s", username)
 ```
-
-## Erreurs fréquentes des étudiants
-
-- Confondre « secret hardcodé » et « mot de passe faible » sans lier à OWASP
-- Oublier la désérialisation pickle (moins visible que SQLi)
-- Prioriser le debug mode avant pickle (impact moindre en lab local)
-
-## Barème rappel
-
-Schéma 2 pts | Identification 4 pts | Scénarios 2 pts | Priorisation 2 pts
