@@ -71,5 +71,5 @@ La troisième priorité concerne l’exposition d’informations sensibles et la
 
 Les correctifs consistent à supprimer ou protéger la route `/admin/config`, placer les secrets dans des variables d’environnement, désactiver le mode debug, contrôler les extensions de fichiers autorisées et interdire les chemins dangereux comme `../`.
 
-
+### Conclusion
 Les corrections prioritaires doivent se concentrer sur la suppression de `pickle`, la sécurisation des requêtes SQL et la protection des fichiers et secrets.
