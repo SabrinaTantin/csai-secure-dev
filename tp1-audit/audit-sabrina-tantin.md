@@ -45,8 +45,11 @@ flowchart TD
 | `admin_config()`                               | Exposition du chemin de la base, du mode debug et de la clé secrète | Mauvaise configuration — OWASP A05               |
 | `app.run(debug=True)`                          | Lancement de Flask en mode debug                                    | Mauvaise configuration — OWASP A05               |
 
-## 4. Top 3 des correctifs prioritaires
+## 4. Les vulnérabilités à corriger
+### Top 3 des correctifs prioritaires puis les autres vulnérabilités à corriger : 
 
+### Top 3 des correctifs prioritaires 
+ 
 ### 1. Supprimer la désérialisation `pickle`
 
 La priorité numéro 1 concerne la fonction qui utilise `pickle.loads()` sur une donnée fournie par l’utilisateur. Cette vulnérabilité est critique car elle peut permettre à un attaquant d’exécuter du code côté serveur. Elle correspond à l’OWASP A08 — Software or Data Integrity Failures.
