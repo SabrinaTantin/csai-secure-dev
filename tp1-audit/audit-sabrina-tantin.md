@@ -52,7 +52,7 @@ Application Flask
 
 
    ## 3. Top 3 des correctifs prioritaires
-
+   
 ### 1. Supprimer la désérialisation `pickle`
 
 La priorité numéro 1 concerne la fonction qui utilise `pickle.loads()` sur une donnée fournie par l’utilisateur. Cette vulnérabilité est critique car elle peut permettre à un attaquant d’exécuter du code côté serveur. Elle correspond à l’OWASP A08 — Software or Data Integrity Failures.
