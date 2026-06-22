@@ -1,6 +1,6 @@
 # TP2 — Injections et validation des entrées (Séance 2)
 
-**Durée :** 1h40 | **Poids :** 20 % | **Travail :** individuel ou binôme
+**Durée :** 1h40 | **Travail :** individuel ou binôme
 
 ## Objectif
 
@@ -11,7 +11,7 @@ Exploiter puis corriger trois classes d'injections courantes en Python.
 ```bash
 cd tp2-injections
 python -m venv .venv && source .venv/bin/activate
-pip install -r ../../requirements.txt
+pip install -r ../requirements.txt
 pytest tests/ -v   # échoue tant que le code n'est pas corrigé
 ```
 
