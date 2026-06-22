@@ -1,4 +1,4 @@
-# Ce livrable présente l’audit de sécurité du TP1. L’analyse porte sur les flux applicatifs, les vulnérabilités identifiées, leur correspondance avec l’OWASP Top 10 et les correctifs prioritaires à mettre en oeuvre.
+Ce livrable présente l’audit de sécurité du TP1. L’analyse porte sur les flux applicatifs, les vulnérabilités identifiées, leur correspondance avec l’OWASP Top 10 et les correctifs prioritaires à mettre en oeuvre.
 
 # TP1 — Audit de sécurité d’une application Flask vulnérable
 
@@ -50,32 +50,26 @@ Application Flask
 | Exposition de secrets              | A05: Security Misconfiguration              | `admin_config()`      | La route expose la clé secrète Flask et le chemin de la base de données.                                           | Haute    |
 | Mode debug activé                  | A05: Security Misconfiguration              | `app.run(debug=True)` | Le mode debug peut exposer des informations techniques sensibles.                                                  | Haute    |
 
-## 3. Top 3 des correctifs prioritaires
+
+   ## 3. Top 3 des correctifs prioritaires
 
 ### 1. Supprimer la désérialisation `pickle`
 
-La fonction `pickle.loads()` ne doit jamais être utilisée sur une donnée fournie par l’utilisateur.
-Il faut la remplacer par un format plus sûr comme JSON, avec une validation stricte des champs attendus.
+La priorité numéro 1 concerne la fonction qui utilise `pickle.loads()` sur une donnée fournie par l’utilisateur. Cette vulnérabilité est critique car elle peut permettre à un attaquant d’exécuter du code côté serveur. Elle correspond à l’OWASP A08 — Software or Data Integrity Failures.
+
+Le correctif prioritaire consiste à supprimer l’utilisation de `pickle` pour les données utilisateur. Il faut utiliser un format plus sûr, comme JSON, et valider strictement les champs attendus avant tout traitement.
 
 ### 2. Corriger l’injection SQL
 
-Les requêtes SQL doivent être paramétrées afin d’éviter l’injection SQL.
+La deuxième priorité concerne la route `/users/search`. Cette route utilise une entrée utilisateur dans une requête SQL. Si cette entrée n’est pas correctement contrôlée, un attaquant peut tenter de lire ou d’extraire des données de la base. Cette vulnérabilité correspond à l’OWASP A03 — Injection.
 
-Exemple de correction :
+Le correctif consiste à utiliser des requêtes SQL paramétrées. Cela permet de séparer clairement la requête SQL des données saisies par l’utilisateur.
 
-python
-conn.execute(
-    "SELECT id, username FROM users WHERE username = ?",
-    (username,)
-)
+### 3. Sécuriser la configuration, les secrets et les fichiers
 
+La troisième priorité concerne l’exposition d’informations sensibles et la gestion des fichiers. La route `/admin/config` expose la clé secrète Flask, le chemin de la base de données et le mode debug actif. Les routes d’upload et de téléchargement peuvent aussi permettre une lecture ou une écriture de fichiers non autorisée. Ces vulnérabilités correspondent notamment à l’OWASP A05 — Security Misconfiguration et A01 — Broken Access Control.
 
-### 3. Sécuriser la gestion des fichiers et de la configuration
+Les correctifs consistent à supprimer ou protéger la route `/admin/config`, placer les secrets dans des variables d’environnement, désactiver le mode debug, contrôler les extensions de fichiers autorisées et interdire les chemins dangereux comme `../`.
 
-Il faut valider les noms de fichiers, interdire les chemins relatifs dangereux comme `../`, limiter les extensions autorisées, désactiver le mode debug et ne jamais exposer les secrets applicatifs via une route comme `/admin/config`.
-
-## Conclusion
-
-L’application contient plusieurs vulnérabilités critiques permettant potentiellement l’accès non autorisé aux données, la lecture ou l’écriture de fichiers, l’exposition de secrets et l’exécution de code côté serveur.
 
 Les corrections prioritaires doivent se concentrer sur la suppression de `pickle`, la sécurisation des requêtes SQL et la protection des fichiers et secrets.
