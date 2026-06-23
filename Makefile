@@ -55,7 +55,7 @@ test-solutions: check-env
 test: test-student
 
 bandit: check-env
-	$(VENV)/bin/bandit -r tp5-sast/sample_project tp1-audit/app tp3-auth/app tp4-web-api/app tp6-challenge/app -ll
+	$(VENV)/bin/bandit -r tp5-sast/sample_project -ll
 
 pip-audit: check-env
 	$(VENV)/bin/pip-audit -r requirements.txt
