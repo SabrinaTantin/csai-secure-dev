@@ -12,7 +12,7 @@ Sécuriser un endpoint `/login` FastAPI en corrigeant le stockage des mots de pa
 cd tp3-auth
 cp .env.example .env
 # Éditer .env avec SESSION_SECRET généré via: python -c "import secrets; print(secrets.token_hex(32))"
-pip install -r ../../requirements.txt
+pip install -r ../requirements.txt
 uvicorn app.main:app --reload --port 5003
 ```
 
