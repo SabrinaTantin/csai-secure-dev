@@ -1,6 +1,6 @@
 # TP4 — Sécurité des applications web Python (Séance 4)
 
-**Durée :** 1h40 | **Poids :** 20 %
+**Durée :** 1h40
 
 ## Objectif
 
